@@ -5,3 +5,6 @@ class Kirjanpito:
 
     def lisaa_tapahtuma(self, tapahtuma):
         self.tapahtumat.append(tapahtuma)
+
+
+the_kirjanpito_olio = Kirjanpito()
