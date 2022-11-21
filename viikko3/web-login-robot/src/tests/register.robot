@@ -1,5 +1,6 @@
 *** Settings ***
 Resource  resource.robot
+Resource  login_resource.robot
 Suite Setup  Open And Configure Browser
 Suite Teardown  Close Browser
 Test Setup  Go To Register Page
@@ -33,17 +34,34 @@ Register With Nonmatching Password And Password Confirmation
     Submit Credentials
     Register Should Fail With Message  Nonmatching password and password confirmation
 
+Login After Successful Registration
+    Set Username  juha
+    Set Password  juhis123
+    Set Password Confirmation  juhis123
+    Submit Credentials
+    Register Should Succeed
+    Go To Login Page
+    Set Username  juha
+    Set Password  juhis123
+    Login
+    Login Should Succeed
+
+
+Login After Failed Registration
+    Set Username  aa
+    Set Password  asdasd123
+    Set Password Confirmation  asdasd123
+    Submit Credentials
+    Register Should Fail With Message  Invalid Username, username has to be at least 3 characters long
+    Go To Login Page
+    Set Username  aa
+    Set Password  asdasd123
+    Login
+    Login Should Fail With Message  Invalid username or password
+
 *** Keywords ***
 Register Should Succeed
     Welcome Page Should Be Open
-
-Set Username
-    [Arguments]  ${username}
-    Input Text  username  ${username}
-
-Set Password
-    [Arguments]  ${password}
-    Input Password  password  ${password}
 
 Set Password Confirmation
     [Arguments]  ${password confirmation}
