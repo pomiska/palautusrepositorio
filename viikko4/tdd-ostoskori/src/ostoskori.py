@@ -11,14 +11,24 @@ class Ostoskori:
         # kertoo korissa olevien tavaroiden lukumäärän
         # eli jos koriin lisätty 2 kpl tuotetta "maito", tulee metodin palauttaa 2 
         # samoin jos korissa on 1 kpl tuotetta "maito" ja 1 kpl tuotetta "juusto", tulee metodin palauttaa 2
-        return len(self.ostokset_list)
+        summa = 0
+        for obj in self.ostokset_list:
+            summa += obj.lukumaara()
+        return summa
 
     def hinta(self):
         # kertoo korissa olevien ostosten yhteenlasketun hinnan
         return self.yhteishinta
 
     def lisaa_tuote(self, lisattava: Tuote):
-        self.ostokset_list.append(Ostos(lisattava))
+        ostos = Ostos(lisattava)
+        ostos_listalla = False
+        for i, obj in enumerate(self.ostokset_list):
+            if obj.tuotteen_nimi() == ostos.tuotteen_nimi():
+                ostos_listalla = True
+                self.ostokset_list[i].muuta_lukumaaraa(1)
+        if (not ostos_listalla):
+            self.ostokset_list.append(ostos)
         self.yhteishinta += lisattava.hinta()
 
     def poista_tuote(self, poistettava: Tuote):
