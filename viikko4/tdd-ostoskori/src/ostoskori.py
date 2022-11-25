@@ -19,6 +19,7 @@ class Ostoskori:
 
     def lisaa_tuote(self, lisattava: Tuote):
         self.ostokset.append(lisattava)
+        self.yhteishinta += lisattava.hinta()
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen
