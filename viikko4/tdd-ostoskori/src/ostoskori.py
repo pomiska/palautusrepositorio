@@ -35,6 +35,9 @@ class Ostoskori:
         for i, obj in enumerate(self.ostokset_list):
             if obj.tuotteen_nimi() == poistettava.nimi():
                 self.ostokset_list[i].muuta_lukumaaraa(-1)
+                self.yhteishinta -= poistettava.hinta()
+                if self.ostokset_list[i].lukumaara() == 0:
+                    del self.ostokset_list[i]
 
     def tyhjenna(self):
         pass
