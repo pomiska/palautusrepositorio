@@ -22,19 +22,19 @@ class Ostoskori:
         return self.yhteishinta
 
     def lisaa_tuote(self, lisattava: Tuote):
-        ostos = Ostos(lisattava)
         ostos_listalla = False
         for i, obj in enumerate(self.ostokset_list):
-            if obj.tuotteen_nimi() == ostos.tuotteen_nimi():
+            if obj.tuotteen_nimi() == lisattava.nimi():
                 ostos_listalla = True
                 self.ostokset_list[i].muuta_lukumaaraa(1)
         if (not ostos_listalla):
-            self.ostokset_list.append(ostos)
+            self.ostokset_list.append(Ostos(lisattava))
         self.yhteishinta += lisattava.hinta()
 
     def poista_tuote(self, poistettava: Tuote):
-        # poistaa tuotteen
-        pass
+        for i, obj in enumerate(self.ostokset_list):
+            if obj.tuotteen_nimi() == poistettava.nimi():
+                self.ostokset_list[i].muuta_lukumaaraa(-1)
 
     def tyhjenna(self):
         pass
