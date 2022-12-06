@@ -19,7 +19,8 @@ class Kayttoliittyma:
             Komento.SUMMA: Summa(self._sovelluslogiikka, self._lue_syote),
             Komento.EROTUS: Erotus(self._sovelluslogiikka, self._lue_syote),
             Komento.NOLLAUS: Nollaus(self._sovelluslogiikka, self._lue_syote),
-            Komento.KUMOA: Kumoa(self._sovelluslogiikka, self._lue_syote)
+            Komento.KUMOA: Kumoa(self._sovelluslogiikka,
+                                 self._lue_edellinen_komento)
         }
 
     def kaynnista(self):
@@ -66,9 +67,13 @@ class Kayttoliittyma:
     def _lue_syote(self):
         return self._syote_kentta.get()
 
+    def _lue_edellinen_komento(self):
+        return self._edellinen_komento
+
     def _suorita_komento(self, komento):
         komento_olio = self._komennot[komento]
         komento_olio.suorita()
+        self._edellinen_komento = komento_olio
         self._kumoa_painike["state"] = constants.NORMAL
 
         if self._sovelluslogiikka.tulos == 0:
