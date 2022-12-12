@@ -1,3 +1,8 @@
+#"/home/pomiska/git/ohjelmistotuotanto/palautusrepositorio/viikko6/query-language/src/statistics.py"
+#  is overriding the stdlib module "statistics"
+#
+#VSC antaa tuollaista virhettä joten tiedosto on nimetty uudestaan
+
 from player_reader import PlayerReader
 
 
