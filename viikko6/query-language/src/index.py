@@ -9,8 +9,12 @@ def main():
     stats = Statistics(reader)
 
     matcher = And(
-        HasFewerThan(1, "goals"),
-        PlaysIn("NYR")
+        HasAtLeast(70, "points"),
+        Or(
+            PlaysIn("NYR"),
+            PlaysIn("FLA"),
+            PlaysIn("BOS")
+        )
     )
 
     for player in stats.matches(matcher):
