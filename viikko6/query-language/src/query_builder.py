@@ -16,3 +16,6 @@ class QueryBuilder:
 
     def build(self):
         return self._query_object
+
+    def oneOf(self, *matchers):
+        return QueryBuilder(And(self._query_object, Or(*matchers)))
